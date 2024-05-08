@@ -1,0 +1,119 @@
+@mixin index-page {
+	.line {
+		text-align: left;
+
+		&::before {
+			right: auto;
+			left: 0;
+		}
+	}
+
+	.pricing {
+		.card.popular-plan {
+			.popular {
+				left: auto;
+				right: 15px;
+			}
+		}
+	}
+
+	.mdi-arrow-left {
+		&::before {
+			rotate: 180deg;
+		}
+	}
+
+	.footer {
+		.mdi-chevron-left {
+			&::before {
+				rotate: 180deg;
+			}
+		}
+	}
+
+	.main {
+		.shape-bg {
+			left: auto;
+			right: -150px;
+		}
+	}
+
+	.products {
+		.shape-bg {
+			right: auto;
+			left: 0;
+		}
+	}
+
+	.why-us {
+		.dot {
+			left: auto;
+			right: 40px;
+		}
+	}
+
+	.faq {
+		&::before {
+			transform: scaleX(-1);
+		}
+	}
+
+	.contact-us {
+		.img {
+			transform: scaleX(-1);
+		}
+	}
+}
+
+@mixin blog-page {
+	.blog {
+		.img-container {
+			.img {
+				right: -300px;
+				left: auto;
+				transform: scaleX(-1);
+			}
+		}
+
+		.shape-bg {
+			left: auto;
+			right: -150px;
+		}
+	}
+}
+
+@mixin product-page {
+	.img-container {
+		.img {
+			right: 0;
+			left: auto;
+		}
+	}
+}
+
+@mixin product-detail-page {
+	.img-container {
+		.img {
+			right: 0;
+			left: auto;
+		}
+	}
+}
+
+html[dir="ltr"] {
+	section,
+	footer,
+	.card,
+	.box {
+		text-align: left;
+	}
+
+	.slick-next {
+		left: auto;
+		right: 0;
+	}
+
+	@include index-page;
+	@include product-page;
+	@include blog-page;
+}

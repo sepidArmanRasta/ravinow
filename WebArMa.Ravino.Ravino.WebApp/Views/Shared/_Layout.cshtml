@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - راوینو</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <meta name="publisher" content="راوینو" />
+    <meta name="title" content="راوینو" />
+    <meta name="description" content="راوینو" />
+
+    <meta http-equiv="content-language" content="fa" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+
+    <link rel="stylesheet" href="~/assets/fonts/@@mdi/css/materialdesignicons.min.css" />
+
+    <link id="bootstraplink" rel="stylesheet" href="~/assets/css/bootstrap-5.2.0/css/bootstrap.rtl.min.css" />
+
+    <script src="~/assets/js/jquery.min.js"></script>
+    <link href="~/assets/plugins/slick/css/slick.css" rel="stylesheet" />
+    <link href="~/assets/plugins/slick/css/slick-theme.css" rel="stylesheet" />
+    <script src="~/assets/plugins/slick/js/slick.min.js"></script>
+
+    <link href="~/assets/plugins/aos/css/aos.css" rel="stylesheet" />
+    <script src="~/assets/plugins/aos/js/aos.js"></script>
+
+    <script src="~/assets/plugins/countup/js/countup.umd.min.js"></script>
+    <script src="~/assets/plugins/noframework/js/noframework.waypoints.min.js"></script>
+
+    <link rel="stylesheet" href="~/assets/css/styles.min.css" />
+    <link href="~/assets/plugins/noty/css/flat.css" rel="stylesheet" />
+    <link href="~/assets/plugins/md-bootstrappersiandatetimepicker/css/mds.bs.datetimepicker.style.css" rel="stylesheet" />
+    <script src="~/assets/plugins/vue/js/vue.global.js"></script>
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="theme-middle-blue">
+    @* <div class="preloader">
+        <div class="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div> *@
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a href="/">
+                <img class="logo" src="~/assets/images/_generals/logo.png" />
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav navbar-items list-unstyled d-flex flex-column flex-md-row mb-0">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "Home" ? "active" : "") lh-lg py-2 px-3" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "Blog" ? "active" : "") lh-lg py-2 px-3" asp-controller="Blog" asp-action="Index">اخبار</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "" ? "active" : "") lh-lg py-2 px-3" href="#products">معاونت‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "" ? "active" : "") lh-lg py-2 px-3" href="#portfolio">رویداد‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "" ? "active" : "") lh-lg py-2 px-3" href="#faq">پرسش‌های متداول</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "" ? "active" : "") lh-lg py-2 px-3" href="#aboutus">درباره‌ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.Route == "" ? "active" : "") lh-lg py-2 px-3" href="#faq">تماس‌با‌ما</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="theme-dropdown dropdown d-none d-md-flex">
+                <a class="dropdown-toggle cursor-pointer text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="mdi mdi-account mdi-24px"></span>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <span> @ViewBag.UserInfo?.FullName</span>
+                    }
+                    else
+                    {
+                        <span>ورود / عضویت</span>
+                    }
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a class="dropdown-item" asp-controller="Management" asp-action="Index">صفحه مدیریتی</a>
+                            </li>
+                        }
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">خروج از حساب کاربری</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Login" asp-route-callBackUrl="@(Context.Request.Path)">ورود</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Register">عضویت</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="main" class="main pb-5">
+        @RenderBody()
+    </section>
+
+    <footer class="footer">
+        <div class="container d-flex flex-row flex-wrap p-3">
+            <div class="d-flex flex-column justify-content-start align-items-start col-xl-3 col-lg-4 col-md-6 col-12 mb-3 mb-xl-0">
+                <h1 class="app-title font-pinar h4 mb-3"> راوینو </h1>
+                <p class="text-muted lh-lg">راوینو یک قالب تک صفحه ای است که با آخرین نسخه بوت استرپ طراحی شده است.</p>
+                <div class="enamad d-flex flex-row justify-content-start align-items-start col-12 col-md-4">
+                    <a href="#" class="enamad-item p-2"><img src="~/assets/images/samandehi.png" /></a>
+                    <a href="#" class="enamad-item p-2 mx-1"><img src="~/assets/images/kasbokar.png" /></a>
+                    <a href="#" class="enamad-item p-2"><img src="~/assets/images/enamad.png" /></a>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-start align-items-start col-xl-3 col-lg-4 col-md-6 col-12 mb-3 mb-lg-0">
+                <span class="theme-secondary-color d-block mb-3">تماس با ما</span>
+                <small class="d-block text-muted mb-2">
+                    <i class="mdi mdi-map-marker"></i>
+                    آدرس
+                </small>
+                <a class="d-block small lh-lg mb-2" href="https://www.google.com/maps/@@35.7652712,51.4276345,17.25z" target="_blank" rel="noopener">تهران ، میدان آزادی ، خیابان 14 شرقی ، پلاک 20 ، واحد 1</a>
+                <small class="d-block text-muted mb-2">
+                    <i class="mdi mdi-phone"></i>
+                    تلفن
+                </small>
+                <a class="d-block small ls-1 mb-2" href="tel:+982111223344">021-11223344</a>
+                <small class="d-block text-muted mb-2">
+                    <i class="mdi mdi-at"></i>
+                    ایمیل
+                </small>
+                <a class="d-block small ls-1" href="mailto:info@raman.ir">info@raman.ir</a>
+            </div>
+
+            <div class="d-flex flex-column justify-content-start align-items-start col-12 col-md-3 mb-3 mb-md-0">
+                <span class="theme-secondary-color d-block mb-3">پیوندها</span>
+                <ul class="list-unstyled px-0 mb-0">
+                    <li class="mb-2">
+                        <a href="#products" class="d-flex flex-row align-items-center"><i class="mdi mdi-chevron-left"></i><span class="d-inline-block small">محصولات</span></a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#faq" class="d-flex flex-row align-items-center"><i class="mdi mdi-chevron-left"></i><span class="d-inline-block small">پرسش‌های متداول</span></a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#blog" class="d-flex flex-row align-items-center"><i class="mdi mdi-chevron-left"></i><span class="d-inline-block small">آخرین مقالات</span></a>
+                    </li>
+                    <li>
+                        <a href="#aboutus" class="d-flex flex-row align-items-center"><i class="mdi mdi-chevron-left"></i><span class="d-inline-block small">درباره ما</span></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex flex-column justify-content-start align-items-start col-xl-3 col-lg-4 col-md-6 col-12">
+                <span class="theme-secondary-color d-block mb-3">خبرنامه</span>
+                <p class="text-muted small lh-lg">برای عضویت در خبرنامه ثبت نام کنید</p>
+                <div class="newsletters position-relative d-flex flex-row">
+                    <input type="email" name="email" class="email text-start" placeholder="ایمیل خود را وارد کنید" />
+                    <button type="button" class="btn d-flex flex-row justify-content-center align-items-center"><i class="mdi mdi-email"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyrights p-2">
+            <div class="container d-flex flex-row flex-wrap justify-content-center justify-content-md-between">
+                <small class="d-block text-center text-muted mb-3 mb-md-0">
+                    <i class="mdi mdi-copyright"></i>
+                    2022 <a class="link link-theme mx-1" href="/">راوینو</a>، تمامی حقوق محفوظ می باشد
+                </small>
+
+                <div class="d-flex flex-row">
+                    <a href="#" class="instagram px-2"><i class="mdi mdi-instagram mdi-18px"></i></a>
+                    <a href="#" class="whatsapp px-2"><i class="mdi mdi-whatsapp mdi-18px"></i></a>
+                    <a href="#" class="linkedin px-2"><i class="mdi mdi-linkedin mdi-18px"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="~/assets/plugins/isotope/js/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="~/assets/css/bootstrap-5.2.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/plugins/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/main.js"></script>
+    <script type="text/javascript" src="~/assets/js/index.js"></script>
+    <script src="~/assets/plugins/sweetalert/js/sweetalert2@11.js"></script>
+    <script src="~/assets/plugins/md-bootstrappersiandatetimepicker/js/mds.bs.datetimepicker.js"></script>
+    <script src="~/assets/plugins/ckeditor/js/ckeditor.js"></script>
+    <script src="~/assets/plugins/ckeditor/js/fa.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

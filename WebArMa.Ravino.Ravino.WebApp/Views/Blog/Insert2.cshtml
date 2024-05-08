@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "ایجاد مطلب جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="insertBlogs">
+    <section class="alternate py-3 py-md-5">
+        <div class="container d-flex flex-column flex-md-row flex-wrap">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 pe-0 pe-md-3 mb-4 mb-md-0">
+                <div class="card post mb-4">
+                    <div class="body p-3">
+
+                        <div class="row p-2">
+                            <h3>ایجاد مطلب جدید</h3>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <label class="form-label">عنوان:</label>
+                                <input v-on:keyup="InsertBlogValidation(1)" v-model="insertBlogDto.Title" type="text" class="form-control" />
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Title"></label>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="form-label">توضیحات:</label>
+                                <input v-on:keyup="InsertBlogValidation(3)" v-model="insertBlogDto.Description" type="text" class="form-control" />
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Description"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <label class="form-label">تگ‌ها (تگ ها را با "," جدا کنید): </label>
+                                <input v-on:keyup="InsertBlogValidation(5)" v-model="insertBlogDto.Tags" type="text" class="form-control" />
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Tags"></label>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="form-label">دسته بندی: </label>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <select class="form-select" aria-describedby="add-blogCategory" v-model="insertBlogDto.CategoryId">
+                                            <option v-for="item in blogCategoriesItems" v-bind:value="item.id">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-1 ml-1">
+                                        <a data-bs-toggle="modal" data-bs-target="#insertBlogCategoryModal" class="btn mdi border-0 mdi-24px theme-primary-color mdi-plus-circle h-auto" title="افزودن دسته بندی جدید" id="add-blogCategory"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12">
+                                <label class="form-label">تاریخ انتشار: <span class="text-danger">*</span> </label>
+                                <input id="dateSearch" type="text" class="form-control" />
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Photo"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="form-label">انتخاب عکس: <span class="text-danger">*</span> </label>
+                                <div class="m-2 border-1">
+                                    <input v-on:change="uploadImageForBlog" accept="image/*" id="blogCover" type="file" hidden />
+                                    <button v-if="!insertBlogDto.Photo" v-on:click="OnImageSelectorClickForBlog" class="btn btn-default w-100 min-height-200 mdi mdi-24px theme-primary-color mdi-plus-circle"></button>
+                                    <img v-else class="mw-100 cursor-pointer" v-on:click="OnImageSelectorClickForBlog" v-bind:src="insertBlogDto.Photo" />
+                                    <label v-text="insertBlogDtoMessages.Photo" class="form-label text-danger"></label>
+                                </div>
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Photo"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="form-label">بدنه مطلب: </label>
+                                <div id="EditorToolbar" class="toolbar-container"></div>
+                                <div class="ckeditor-text-area" name="content" id="editor"></div>
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Body"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="button" v-if="InsertBlogValidation()" v-on:click="OnInsertBlog" class="btn btn-primary">ذخیره</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="insertBlogCategoryModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="insertBlogCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="insertBlogCategoryModalLabel">افزودن دسته بندی مطالب جدید</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">دسته بندی پدر: <span class="text-danger">*</span></label>
+                            <select v-model="insertBlogCategoryDto.ParentCategoryId" class="form-select">
+                                <option value="null">ندارد</option>
+                                <option v-for="item in blogCategoriesItems" v-bind:value="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">نام دسته بندی: <span class="text-danger">*</span></label>
+                            <input v-model="insertBlogCategoryDto.Name" v-on:keyup="InsertBlogCategoryValidation(1)" type="text" class="form-control" />
+                            <label v-text="insertBlogCategoryDtoMessages.Name" class="form-label text-danger"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">توضیحات دسته بندی: <span class="text-danger">*</span> </label>
+                            <input v-model="insertBlogCategoryDto.Description" v-on:keyup="InsertBlogCategoryValidation(2)" type="text" class="form-control" />
+                            <label v-text="insertBlogCategoryDtoMessages.Description" class="form-label text-danger"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">انتخاب عکس: <span class="text-danger">*</span> </label>
+                            <div class="ImagePicker border-1">
+                                <input v-on:change="uploadImage" accept="image/*" id="categoryCover" type="file" hidden />
+                                <button v-if="!insertBlogCategoryDto.Photo" v-on:click="OnImageSelectorClick" class="btn btn-default w-100 min-height-200 mdi mdi-24px theme-primary-color mdi-plus-circle"></button>
+                                <img v-else class="mw-100 cursor-pointer" v-on:click="OnImageSelectorClick" v-bind:src="insertBlogCategoryDto.Photo" />
+                                <label v-text="insertBlogCategoryDtoMessages.Photo" class="form-label text-danger"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">بستن</button>
+                    <button type="button" v-if="InsertBlogCategoryValidation()" v-on:click="OnInsertBlogCategory" class="btn btn-primary">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/blog/insert.js"></script>
+}

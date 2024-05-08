@@ -1,0 +1,452 @@
+﻿@using Application.Services.Blogs.Dtos
+@using Application.Services.Contents.Dto
+@{
+    ViewData["Title"] = "خانه";
+}
+@model List<ContentDto>
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/index.min.css" />
+}
+
+<section id="main" class="main pb-5">
+    <div class="container d-flex flex-column-reverse flex-md-row">
+        <div class="d-block col-12 col-md-4 pt-5 mb-lg-0" data-aos="fade-left">
+            <div id="main-slider-textToolbar"></div>
+            <div id="main-slider-text">
+                @(Html.Raw(Model.Where(c => c.Source == "main-slider-text").FirstOrDefault()?.Description))
+            </div>
+            <a class="btn btn-primary me-2" href="login.html">
+                شروع کنید
+                <i class="mdi mdi-arrow-left mdi-18px"></i>
+            </a>
+            <a class="btn btn-primary-outline" href="#">
+                <i class="mdi mdi-phone-in-talk-outline mdi-18px"></i>
+                مشاوره بگیرید
+            </a>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-primary m-2" data-type="edit-btn" onclick="edit('main-slider-text')">ویرایش متن</a>
+                <a class="btn btn-success m-2" hidden id="main-slider-text-btn" onclick="save('main-slider-text')">ذخیره</a>
+            }
+
+        </div>
+
+        <div class="image-container d-flex flex-row justify-content-end col-12 col-md-8">
+            <div class="box">
+                <div class="overflow-hidden">
+                    <img class="image" src="~/assets/images/woman1.png" />
+                </div>
+            </div>
+        </div>
+
+        <div class="shape-bg">
+            <img src="~/assets/images/shape5.png" />
+        </div>
+    </div>
+</section>
+
+<section id="whyus" class="why-us alternate">
+    <div class="container d-flex flex-column-reverse flex-md-row overflow-hidden py-5">
+        <div class="box d-block col-12 p-4 mb-5" data-aos="fade-left">
+            <div class="title d-flex flex-column flex-md-row flex-wrap justify-content-between text-white pt-4">
+                <h3 class="font-iransans-black col-12 col-md-6 my-0">چرا ما؟</h3>
+                <span class="d-block font-iransans-bold col-12 col-md-6 lh-lg">
+                    <div id="main-why-us-textToolbar"></div>
+                    <div id="main-why-us-text">
+                        @(Html.Raw(Model.Where(c => c.Source == "main-why-us-text").FirstOrDefault()?.Description))
+                    </div>
+                </span>
+            </div>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-light m-2" data-type="edit-btn" onclick="edit('main-why-us-text')">ویرایش متن</a>
+                <a class="btn btn-success m-2" hidden id="main-why-us-text-btn" onclick="save('main-why-us-text')">ذخیره</a>
+            }
+
+            <div class="dot"></div>
+
+            <ul class="list list-unstyled d-flex flex-row flex-wrap justify-content-center font-iransans-medium px-0 px-md-5 mb-0">
+                <li class="list-item col-12 col-md-6 col-lg-3 p-2">
+                    <div class="card h-100">
+                        <div class="header p-4">
+                            <i class="mdi mdi-bullseye-arrow mdi-48px ms-2"></i>
+                        </div>
+                        <div class="body p-4 pt-0">
+                            <small class="d-block lh-lg">بروزترین و کاربردی ترین روش‌ها با پشتیبانی کامل</small>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-light m-2" data-type="edit-btn" onclick="edit('main-why-us-text')">ویرایش متن</a>
+                            <a class="btn btn-success m-2" hidden id="main-why-us-text-btn" onclick="save('main-why-us-text')">ذخیره</a>
+                        }
+                    </div>
+                </li>
+                <li class="list-item col-12 col-md-6 col-lg-3 p-2">
+                    <div class="card h-100">
+                        <div class="header p-4">
+                            <i class="mdi mdi-lightbulb-on-outline mdi-48px ms-2"></i>
+                        </div>
+                        <div class="body p-4 pt-0">
+                            <small class="d-block lh-lg">کسب درآمد خیلی سریع و بی دردسر</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-item col-12 col-md-6 col-lg-3 p-2">
+                    <div class="card h-100">
+                        <div class="header p-4">
+                            <i class="mdi mdi-bullhorn-variant-outline mdi-48px ms-2"></i>
+                        </div>
+                        <div class="body p-4 pt-0">
+                            <small class="d-block lh-lg">آپدیت‌های منظم، خدمات پس از فروش و مشاوره</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-item col-12 col-md-6 col-lg-3 p-2">
+                    <div class="card h-100">
+                        <div class="header p-4">
+                            <i class="mdi mdi-trophy-outline mdi-48px ms-2"></i>
+                        </div>
+                        <div class="body p-4 pt-0">
+                            <small class="d-block lh-lg">فراگیری شروع کسب‌و‌کار یک نفره</small>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="news" class="news position-relative alternate overflow-hidden py-5">
+    <div class="container d-block">
+        <div class="title d-flex flex-column flex-md-row flex-wrap justify-content-between pt-5 px-3">
+            <h3 class="line font-iransans-black col-12 col-md-6 my-0"> اخبار راوینو </h3>
+        </div>
+
+        <div class="shape-bg">
+            <img src="~/assets/images/shape5.png" />
+        </div>
+
+        <div class="d-flex flex-column flex-md-row justify-content-start pt-5">
+            <div class="d-block col-12 col-lg-3 col-md-4 p-3">
+                <div class="card d-flex flex-column justify-content-between align-items-center h-100 p-3">
+                    <img class="special-img my-4" src="~/assets/images/discount.svg" />
+                    <div class="d-block mb-3">
+                        <div id="main-news-textToolbar">
+                        </div>
+                        <div id="main-news-text">
+                            @(Html.Raw(Model.Where(c => c.Source == "main-news-text").FirstOrDefault()?.Description))
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-light m-2" data-type="edit-btn" onclick="edit('main-news-text')">ویرایش متن</a>
+                        <a class="btn btn-success m-2" hidden id="main-news-text-btn" onclick="save('main-news-text')">ذخیره</a>
+                    }
+                    <a class="btn btn-primary w-100" href="product.html"> مشاهده </a>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-9 col-md-8">
+                <div class="news-slider">
+
+                    @foreach (var item in (List<BlogListDto>)ViewBag.News)
+                    {
+                        <div class="news-slider-item news-slider-item-1 col-3 p-3 mb-4">
+                            <div class="card p-2">
+                                <div class="header d-flex flex-row justify-content-center pt-3 mb-3">
+                                    <img class="img" src="@(item.Photo)" />
+                                </div>
+                                <div class="body mb-3">
+                                    <span class="d-block small lh-base px-2 mb-3">@(item.Description)</span>
+                                    <h6 class="d-block font-iransans-black text-center">
+                                        <small>
+                                            @(item.PersianUpdateTime)
+                                        </small>
+                                    </h6>
+                                </div>
+                            </div>
+                            <a class="btn btn-primary" href="Blog/@(item.Title)">مشاهده</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio" class="portfolio position-relative py-5">
+    <div class="container d-block">
+        <h3 class="line d-block font-iransans-black"> نمونه کارهای من </h3>
+
+        @foreach(var item in Model)
+        <div class="portfolio-grid">
+            <div class="portfolio-item group1 col-6 col-md-3 p-1">
+                <img class="w-100" src="assets/images/portfolio/1.jpg" />
+                <div class="item-img-overlay">
+                    <small class="d-block text-muted mb-3">نمونه کار</small>
+                    <h6 class="fw-bold mb-3">قالب راوینو</h6>
+                    <a class="link link-theme" href="#">
+                        <i class="mdi mdi-link mdi-36px"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#portfolioModal" id="main-slider-text-btn">افزودن جدید</a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="portfolioModalLabel">نمونه کار جدید</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="form-label">انتخاب عکس: <span class="text-danger">*</span> </label>
+                                <div class="m-2 border-1">
+                                    <input v-on:change="uploadImageForBlog" accept="image/*" id="blogCover" type="file" hidden />
+                                    <button v-if="!insertBlogDto.Photo" v-on:click="OnImageSelectorClickForBlog" class="btn btn-default w-100 min-height-200 mdi mdi-24px theme-primary-color mdi-plus-circle"></button>
+                                    <img v-else class="mw-100 cursor-pointer" v-on:click="OnImageSelectorClickForBlog" v-bind:src="insertBlogDto.Photo" />
+                                    <label v-text="insertBlogDtoMessages.Photo" class="form-label text-danger"></label>
+                                </div>
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Photo"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="form-label">عنوان:</label>
+                                <input v-on:keyup="InsertBlogValidation(1)" v-model="insertBlogDto.Title" type="text" class="form-control" />
+                                <label class="form-label text-danger" v-text="insertBlogDtoMessages.Title"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                        <button type="button" class="btn btn-primary">ذخیره</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+<section id="rate" class="about-us position-relative py-5">
+    <div class="container d-block" data-aos="fade-down-right">
+        <h3 class="line d-block font-iransans-black"> آمار‌ها </h3>
+        <div class="shape-bg">
+            <img src="~/assets/images/shape5.png" />
+        </div>
+
+        <div class="d-flex flex-column flex-md-row flex-wrap justify-content-start align-items-center text-center">
+            <div class="col-12 col-lg-3 col-md-6 p-3">
+                <div class="card d-flex flex-row justify-content-center align-items-center mt-0 mt-md-5">
+                    <div class="body">
+                        <h1 id="val1" class="font-iransans-black my-3" data-value="33"></h1>
+                        <span class="d-block">محصول</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6 p-3">
+                <div class="card d-flex flex-row justify-content-center align-items-center p-4 mt-0 mt-md-2">
+                    <div class="body">
+                        <h1 id="val2" class="font-iransans-black my-3" data-value="7000"></h1>
+                        <span class="d-block">تعداد مشتریان</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6 p-3">
+                <div class="card d-flex flex-row justify-content-center align-items-center p-4 mt-0 mt-md-5">
+                    <div class="body">
+                        <h1 id="val3" class="font-iransans-black my-3" data-value="18"></h1>
+                        <span class="d-block">مدرس</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6 p-3">
+                <div class="card d-flex flex-row justify-content-center align-items-center p-4">
+                    <div class="body">
+                        <h1 id="val4" class="font-iransans-black my-3" data-value="15400"></h1>
+                        <span class="d-block">نظر شرکت کننده</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="customers" class="customers overflow-hidden p-5">
+    <div class="container d-block">
+        <div class="employer-slider" data-aos="fade-down-right">
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/amazon.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/google.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/lenovo.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/microsoft.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/paypal.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/shopify.svg" />
+            </a>
+            <a class="link employer-link d-flex flex-row justify-content-center align-items-center" href="#" target="_blank" rel="noopener">
+                <img class="employer-logo" src="~/assets/images/customers/spotify.svg" />
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="aboutus" class="about-us position-relative py-5">
+    <div class="container d-block" data-aos="fade-down-right">
+        <div class="shape-bg">
+            <img src="~/assets/images/shape5.png" />
+        </div>
+
+        <div class="d-flex flex-column flex-md-row flex-wrap justify-content-start align-items-center pt-5">
+            <div class="d-flex flex-column-reverse flex-md-row flex-wrap justify-content-start pt-5">
+                <div class="position-relative col-12 col-md-6">
+                    <div class="image-container d-flex flex-row justify-content-center col-12 col-md-8 w-100">
+                        <div class="box"> </div>
+                    </div>
+                    <img class="image" src="~/assets/images/man.png" />
+                </div>
+                <div class="col-12 col-md-6 mb-5 mb-md-0">
+                    <h3 class="line font-iransans-black mb-3"> راوینو چیست؟ </h3>
+                    <div id="main-about-us-textToolbar"></div>
+                    <div id="main-about-us-text">
+                        @(Html.Raw(Model.Where(c => c.Source == "main-about-us-text").FirstOrDefault()?.Description))
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-us d-flex flex-column flex-md-row flex-wrap justify-content-between w-100 p-5">
+                <div class="d-block mt-5 mt-md-0"></div>
+                <div class="contact-us-phone d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center mt-5 mt-md-0">
+                    <span class="font-iransans-black d-block mx-4 mb-4 mb-md-0">نیاز به مشاوره دارید؟</span>
+                    <a class="btn btn-secondary font-iransans-black rounded-5" href="tel:+982178355412">
+                        02178355412
+                        <i class="mdi mdi-phone-in-talk-outline mdi-18px"></i>
+                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-primary m-2" data-type="edit-btn" onclick="edit('main-about-us-text')">ویرایش متن</a>
+                        <a class="btn btn-success m-2" hidden id="main-about-us-text-btn" onclick="save('main-about-us-text')">ذخیره</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contactus" class="contact-us position-relative overflow-hidden py-5">
+    <div class="container d-block mb-4" data-aos="fade-down-left">
+        <h3 class="line font-iransans-black"> تماس با ما </h3>
+
+        <div class="box d-flex flex-column-reverse flex-md-row flex-wrap mt-5" data-aos="fade-left">
+            <div class="col-12 col-md-6 text-center mt-5 mt-md-0">
+                <img class="img" src="~/assets/images/contactus.png" />
+            </div>
+            <form class="col-12 col-md-6 p-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fullname" name="fullname" maxlength="50" placeholder="نام را وارد کنید" />
+                    <label for="fullname">نام</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control text-end" id="email" name="email" maxlength="100" placeholder="ایمیل را وارد کنید" />
+                    <label for="email">ایمیل</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="comment" name="comment" rows="5" maxlength="200" placeholder="پیام را وارد کنید" style="height: 80px"></textarea>
+                    <label for="comment">پیام</label>
+                </div>
+
+                <a class="btn btn-primary">ارسال<i class="mdi mdi-send mdi-rotate-225 ms-2"></i></a>
+            </form>
+        </div>
+    </div>
+
+    <a id="scrollToTop" class="link scroll-to-top" href="#"><i class="mdi mdi-arrow-up mdi-24px"></i></a>
+</section>
+
+<section id="faq" class="faq position-relative pt-5">
+    <div class="container d-block py-5" data-aos="fade-down-left">
+        <h3 class="line font-iransans-black"> پرسش‌های متداول </h3>
+
+        <div class="d-block pt-5" id="accordionFaq" data-aos="zoom-in">
+            <ul class="list-unstyled px-0 mb-0">
+                <li class="py-2 px-3 mb-4">
+                    <a class="link d-flex flex-row justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                        چگونه میتوانم ثبت سفارش کنم
+                        <i class="mdi mdi-chevron-down mdi-24px text-muted"></i>
+                    </a>
+                    <p id="collapse1" class="accordion-collapse collapse lh-lg mt-3" data-bs-parent="#accordionFaq">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                        هدف بهبود ابزارهای کاربردی می باشد
+                    </p>
+                </li>
+                <li class="py-2 px-3 mb-4">
+                    <a class="link d-flex flex-row justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        چه محصولاتی شامل ضمانت می شوند
+                        <i class="mdi mdi-chevron-down mdi-24px text-muted"></i>
+                    </a>
+                    <p id="collapse2" class="accordion-collapse collapse lh-lg mt-3" data-bs-parent="#accordionFaq">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                        هدف بهبود ابزارهای کاربردی می باشد
+                    </p>
+                </li>
+                <li class="py-2 px-3 mb-4">
+                    <a class="link d-flex flex-row justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        از چه روشهایی میتوانم سفارش خود را پرداخت کنم
+                        <i class="mdi mdi-chevron-down mdi-24px text-muted"></i>
+                    </a>
+                    <p id="collapse3" class="accordion-collapse collapse lh-lg mt-3" data-bs-parent="#accordionFaq">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                        هدف بهبود ابزارهای کاربردی می باشد
+                    </p>
+                </li>
+                <li class="py-2 px-3 mb-4">
+                    <a class="link d-flex flex-row justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        چطور میتوانم کد تخفیف دریافت کنم
+                        <i class="mdi mdi-chevron-down mdi-24px text-muted"></i>
+                    </a>
+                    <p id="collapse4" class="accordion-collapse collapse lh-lg mt-3" data-bs-parent="#accordionFaq">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                        هدف بهبود ابزارهای کاربردی می باشد
+                    </p>
+                </li>
+                <li class="py-2 px-3 mb-4">
+                    <a class="link d-flex flex-row justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        چطور میتوانم از کارت هدیه استفاده کنم
+                        <i class="mdi mdi-chevron-down mdi-24px text-muted"></i>
+                    </a>
+                    <p id="collapse5" class="accordion-collapse collapse lh-lg mt-3" data-bs-parent="#accordionFaq">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با
+                        هدف بهبود ابزارهای کاربردی می باشد لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                        تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/scripts/home/editor.js"></script>
+    <script src="~/scripts/home/insert.js"></script>
+}

@@ -1,0 +1,55 @@
+$theme-primary-color: #79c8d7;
+$theme-secondary-color: #fdb900;
+$theme-third-color: #f3f6f6;
+$theme-danger-color: #f93b3b;
+
+$themes: (
+	middle-blue: (
+		primary: #79c8d7,
+		secondary: #fdb900,
+		third: #f3f6f6,
+		danger: #f93b3b,
+	),
+	panton: (
+		primary: #c61a3e,
+		secondary: #fdb900,
+		third: #f3f6f6,
+		danger: #f93b3b,
+	),
+	persian-green: (
+		primary: #00a693,
+		secondary: #fdb900,
+		third: #f3f6f6,
+		danger: #f93b3b,
+	),
+	blue-cola: (
+		primary: #0083d6,
+		secondary: #fdb900,
+		third: #f3f6f6,
+		danger: #f93b3b,
+	),
+	cameo: (
+		primary: #d7b592,
+		secondary: #d7b592,
+		third: #f3f6f6,
+		danger: #f93b3b,
+	),
+);
+
+@mixin theme() {
+	@each $theme, $map in $themes {
+		$theme-map: $map !global;
+		.theme-#{$theme} & {
+			@content;
+		}
+	}
+	$theme-map: null !global;
+}
+
+@function theme-get($keys...) {
+	$map: $theme-map;
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}

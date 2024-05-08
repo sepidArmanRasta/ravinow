@@ -1,0 +1,96 @@
+@import "theme";
+
+.card {
+	border-radius: 16px;
+}
+
+.product {
+	&-image-slider {
+		.slick {
+			&-arrow {
+				width: 32px;
+				height: 32px;
+				border-radius: 7px;
+				background-color: #fff;
+				border: 1px solid #ccc;
+				z-index: 1;
+
+				&::before {
+					color: #000;
+				}
+			}
+
+			&-prev {
+				right: 0;
+			}
+
+			&-next {
+				left: 0;
+			}
+		}
+	}
+
+	&-detail {
+		.features {
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+		}
+
+		&-price {
+			.price {
+				background-color: #eee;
+
+				@include theme() {
+					color: darken($color: theme-get("primary"), $amount: 20);
+				}
+			}
+		}
+	}
+
+	&-info {
+		@include theme() {
+			background-color: #{theme-get("third")};
+		}
+
+		&-desc {
+			@include theme() {
+				border-bottom: 3px solid darken($color: theme-get("third"), $amount: 10);
+			}
+		}
+
+		&-property {
+			ul {
+				li {
+					&:nth-child(even) {
+						@include theme() {
+							background-color: #{theme-get("third")};
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&-comment {
+		&-list {
+			&-item {
+				.avatar {
+					width: 54px;
+					border-radius: 50%;
+				}
+
+				.date {
+					@include theme() {
+						background-color: #{theme-get("third")};
+					}
+				}
+			}
+		}
+
+		&-new {
+			@include theme() {
+				background-color: #{theme-get("third")};
+			}
+		}
+	}
+}

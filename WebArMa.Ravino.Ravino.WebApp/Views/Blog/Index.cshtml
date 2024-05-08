@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "مطالب کاربردی";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="assets/css/blog.min.css" />
+}
+
+<section class="blog alternate overflow-hidden py-5">
+    <div class="container d-flex flex-column flex-md-row flex-wrap">
+        <div id="blog" class="col-xl-9 col-lg-8 col-md-8 col-12 pe-0 pe-md-3 mb-4 mb-md-0">
+            <div class="card w-100 p-3">
+                <div class="body">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="row">
+                            <div class="col-12">
+                                <a asp-controller="Blog" asp-action="Insert" class="btn btn-primary m-2 p-2">افزودن مطلب جدید</a>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                    <ul v-if="data == null" class="blog list-unstyled px-0 mb-0">
+                        <li class="blog-item d-flex flex-column flex-md-row pb-3 mb-3">
+                            <div>
+                                <p>
+                                    در حال بارگذاری ...
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul v-else-if="data.length == 0" class="blog list-unstyled px-0 mb-0">
+                        <li class="blog-item d-flex flex-column flex-md-row pb-3 mb-3">
+                            <div>
+                                <p>
+                                    موردی یافت نشد
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul v-else class="blog list-unstyled px-0 mb-0">
+                        <li v-for="(item , index) in data" class="blog-item d-flex flex-column flex-md-row pb-3 mb-3">
+                            <div class="d-block pe-3 mb-3 mb-md-0">
+                                <img class="img rounded-1" v-bind:src="item.photo" />
+                            </div>
+                            <div class="d-block">
+                                <a class="h5 link d-block lh-lg fw-bold" v-bind:href="'Blog/' + item.title">{{ item.title }}</a>
+                                <div class="d-flex flex-row justify-content-between my-2">
+                                    <div class="flex-row">
+                                        <span class="small text-muted"><i class="mdi mdi-account me-1"></i>مدیر سایت</span>
+                                        <br />
+                                        <br />
+                                        <span class="small text-muted"><i class="mdi mdi-shape mx-1"></i>{{ item.description }}</span>
+                                    </div>
+                                    <span class="small text-muted"><i class="mdi mdi-comment me-1"></i>{{ item.persianInsertTime }}</span>
+                                </div>
+                                <p class="summary d-block lh-lg">
+                                    {{ item.description }}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="blogCategory" class="col-xl-3 col-lg-4 col-md-4 col-12">
+            <div class="post card p-3">
+                <div class="header theme-primary-color d-flex flex-row justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold mb-0">دسته بندی مطالب</h6>
+                    <i class="mdi mdi-television-classic mdi-18px"></i>
+                </div>
+                <div class="body">
+                    <ul v-if="data == null" class="list-unstyled p-0 mb-0">
+                        <li class="post-item d-flex flex-row mb-3">
+                            <p>
+                                در حال بارگذاری
+                            </p>
+                        </li>
+                    </ul>
+                    <ul v-else-if="data.length == 0" class="list-unstyled p-0 mb-0">
+                        <li class="post-item d-flex flex-row mb-3">
+                            <p>
+                                موردی یافت نشد
+                            </p>
+                        </li>
+                    </ul>
+                    <ul v-else class="list-unstyled p-0 mb-0">
+                        <li v-for="(item , index) in data" class="post-item d-flex flex-row mb-3">
+                            <a class="link d-flex flex-row" v-bind:href="'Blog/' + item.title">
+                                <img class="post-item-image" v-if="item.photo" v-bind:src="item.photo" />
+                                <img class="post-item-image" v-else src="~/assets/images/default/category.png" />
+                                <div class="d-flex flex-column small ps-2">
+                                    <h6 class="post-item-title lh-base mt-2 mb-0">{{ item.name }}</h6>
+                                    <span class="post-item-date d-flex flex-row justify-content-start align-items-center text-muted text-start">{{ item.description }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/scripts/blog/blog.js"></script>
+    <script src="~/scripts/blog/blogCategory.js"></script>
+}

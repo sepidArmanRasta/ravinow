@@ -1,0 +1,53 @@
+﻿@using Application.Services.Blogs.Dtos;
+@using MD.PersianDateTime.Standard;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BlogItemDto
+
+<section class="alternate py-3 py-md-5">
+    <div class="container d-flex flex-column flex-md-row flex-wrap">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12 pe-0 pe-md-3 mb-4 mb-md-0">
+            <div class="card post mb-4">
+                <div class="body p-3">
+                    <div class="post-image p-1">
+                        <img class="image w-100" src="@Model.Photo" />
+                    </div>
+
+                    <div class="d-block lh-lg p-3">
+                        <small class="d-block text-start mb-3"> @(new PersianDateTime(Model.InsertTime).ToString("dd MMMM yyyy"))</small>
+                        <h1 class="link d-block fw-bold h5 mb-5">@Model.Title</h1>
+
+                        <div class="d-block">
+                            @(Html.Raw(Model.Body))
+                        </div>
+                    </div>
+
+                    <div class="footer p-2">
+                        <ul class="tag-list list-unstyled d-flex flex-row ps-0 mb-0">
+                            @* <li class="tag-list-item rounded-pill px-2 m-1"><a class="link" href="#">مانیتور</a></li> *@
+                        </ul>
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="row">
+                            <div class="col-12 bg-secondary bg-opacity-25 p-3 rounded-3">
+                                <label class="p-2">گزینه های مدیریتی</label>
+
+                                <div class="footer p-2">
+                                    <button onclick="DeleteBlog('@Model.Id')" class="btn btn-danger">حذف مطلب</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/scripts/blog/blogDetail.js"></script>
+}

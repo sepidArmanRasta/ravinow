@@ -1,0 +1,107 @@
+@import "theme";
+
+.card {
+	border-radius: 16px;
+}
+
+.page-header {
+	min-height: 300px;
+	background-color: #fcf0e4;
+	border-radius: 30px;
+
+	.img-container {
+		.img {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+
+			@media only screen and (max-width: 768px) {
+				position: relative !important;
+				width: 350px;
+			}
+		}
+	}
+}
+
+.product {
+	&-item {
+		.card {
+			.img {
+				width: 150px;
+				height: 160px;
+			}
+		}
+
+		.btn {
+			position: relative;
+			display: block;
+			width: 50%;
+			margin: -20px auto;
+			z-index: 1;
+		}
+	}
+}
+
+.page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0.6rem;
+	background-color: #fff;
+	box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+
+	&__numbers,
+	&__btn,
+	&__dots {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+
+	&__dots {
+		width: 32px;
+		height: 32px;
+		cursor: initial;
+	}
+
+	&__numbers {
+		width: 32px;
+		height: 32px;
+		border-radius: 0.4rem;
+
+		&:hover {
+			@include theme() {
+				color: #{theme-get("secondary")};
+			}
+		}
+
+		&.active {
+			color: #fff;
+			font-weight: 600;
+
+			@include theme() {
+				background-color: #{theme-get("secondary")};
+				border: 1px solid #{theme-get("secondary")};
+			}
+		}
+	}
+
+	&__btn {
+		pointer-events: none;
+
+		&.active {
+			@include theme() {
+				color: #{theme-get("secondary")};
+			}
+
+			pointer-events: initial;
+
+			&:hover {
+				@include theme() {
+					color: #{theme-get("secondary")};
+				}
+			}
+		}
+	}
+}

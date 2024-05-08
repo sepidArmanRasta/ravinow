@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "ورود";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/login.min.css" />
+}
+
+<div id="login" class="page-container d-flex flex-row justify-content-center align-items-center overflow-hidden p-3">
+    <section class="login-section position-relative">
+        <div class="card">
+            <div class="body text-right p-0 p-md-4">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="flex-fill text-right">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div class="d-flex flex-row justify-content-between align-items-start p-4">
+                                <h1 class="d-block fw-bold h6 mb-0">خوش آمدید</h1>
+                            </div>
+
+                            <div class="d-flex flex-column px-4 pb-4">
+                                <form action="#" method="post" class="d-flex flex-column mb-4">
+                                    <div class="form-group d-flex flex-column mb-3">
+                                        <label class="form-label small">شماره تلفن همراه</label>
+                                        <input v-model="loginDto.PhoneNumber" id="username" name="username" type="text" class="form-control text-left" autocomplete="off" maxlength="30" tabindex="1" />
+                                    </div>
+                                    <div class="form-group d-flex flex-column mb-3">
+                                        <label class="form-label small">رمز عبور</label>
+                                        <input v-model="loginDto.Password" id="password" name="password" type="password" class="form-control text-left" autocomplete="off" maxlength="30" tabindex="2" />
+                                    </div>
+                                    <div class="form-group d-flex flex-column">
+                                        <label class="form-label small">کد امنیتی</label>
+
+                                        <div class="input-group form-control">
+                                            <button v-on:click="GenerateCaptcha" type="button" class="btn btn-secondary py-0 px-2">
+                                                <i class="icon mdi mdi-refresh mdi-18px"></i>
+                                            </button>
+
+                                            <img class="captcha-image" v-model:src="captcha" />
+
+                                            <input autocomplete="off" v-model="loginDto.CaptchaValue" type="text" class="form-control captcha-input text-left border-0 rounded" placeholder="- - - -" maxlength="4" tabindex="3" />
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="d-flex flex-column">
+                                    <button v-on:click="Login" type="button" class="btn btn-primary p-2 mb-4" tabindex="4">ورود</button>
+
+                                    <a class="d-block small mb-3" asp-controller="Account" asp-action="Register">ایجاد حساب کاربری</a>
+                                </div>
+                            </div>
+
+                            <div class="terms small">
+                                با ورود به
+                                <strong>راوینو</strong>
+                                ،
+                                <a class="link" href="/terms" target="_blank">شرایط و قوانین</a>
+                                استفاده از خدمات و
+                                <a class="link" href="/privacy" target="_blank">حریم خصوصی</a>
+                                آن را می پذیرم.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-image d-none d-md-block pr-2">
+                        <img class="image h-100" src="~/assets/images/login.svg" />
+                    </div>
+                </div>
+                <div class="loadingBox"> </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/account/login.js"></script>
+}

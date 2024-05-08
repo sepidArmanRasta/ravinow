@@ -1,0 +1,233 @@
+@import "theme";
+
+@mixin font-face($family, $src) {
+	@font-face {
+		font-family: $family;
+		font-style: normal;
+		font-weight: normal;
+		src: url($src);
+	}
+}
+
+@include font-face("iransans", "../fonts/iransans/iransans.ttf");
+@include font-face("iransans_black", "../fonts/iransans/iransans_black.ttf");
+@include font-face("iransans_bold", "../fonts/iransans/iransans_bold.ttf");
+@include font-face("iransans_light", "../fonts/iransans/iransans_light.ttf");
+@include font-face("iransans_medium", "../fonts/iransans/iransans_medium.ttf");
+@include font-face("iransans_ultralight", "../fonts/iransans/iransans_ultralight.ttf");
+@include font-face("pinar", "../fonts/pinar-700.woff2");
+
+.font-iransans {
+	font-family: "iransans" !important;
+
+	&-black {
+		font-family: "iransans_black";
+	}
+	&-bold {
+		font-family: "iransans_bold";
+	}
+	&-light {
+		font-family: "iransans_light";
+	}
+	&-medium {
+		font-family: "iransans_medium";
+	}
+	&-ultralight {
+		font-family: "iransans_ultralight";
+	}
+}
+
+.font-pinar {
+	font-family: "pinar";
+}
+
+body {
+	position: relative;
+	display: block;
+	min-height: 100%;
+	height: 100%;
+	min-width: 360px;
+	margin: 0;
+	padding: 0;
+	font-family: "iransans_light", "tahoma" !important;
+	font-size: 16px;
+	color: #3d414a;
+	text-align: right;
+	overflow-y: auto;
+}
+
+a {
+	text-decoration: none !important;
+	&.link {
+		color: #3d414a;
+
+		&-theme {
+			@include theme() {
+				color: #{theme-get("primary")};
+			}
+		}
+	}
+}
+
+section {
+	background-color: #fff;
+}
+
+.alternate {
+	@include theme() {
+		background-color: #{theme-get("third")};
+	}
+}
+
+.bg {
+	position: relative;
+	background: url(../images/bg.jpg) top center;
+	background-size: cover;
+
+	&::before1 {
+		content: "";
+		background: rgba(255, 255, 255, 0.8);
+		position: absolute;
+		bottom: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	* {
+		z-index: 1;
+	}
+}
+
+// .shape1,
+// .shape2,
+// .shape3,
+// .shape4,
+// .shape5,
+// .shape6 {
+// 	background-size: cover;
+// }
+
+// .shape1,
+// .shape2 {
+// 	min-height: 500px;
+// }
+
+// .shape1 {
+// 	background: url(../images/shape1.png) top center;
+// }
+
+// .shape2 {
+// 	background: url(../images/shape2.png) top center;
+// }
+
+// .shape3 {
+// 	background: url(../images/shape3.png) top center;
+// }
+
+// .shape4 {
+// 	background: url(../images/shape4.png) top center;
+// }
+
+// .shape5 {
+// 	background: url(../images/shape5.png) top center;
+// }
+
+// .shape6 {
+// 	background: url(../images/shape6.png) top center;
+// }
+
+.card {
+	box-shadow: 0 5px 25px 0 rgb(214 215 216 / 60%);
+	background-color: #fff;
+	border-radius: 8px;
+	overflow: hidden;
+	border: none !important;
+}
+
+.theme-primary-color {
+	@include theme() {
+		color: #{theme-get("primary")};
+	}
+}
+
+.theme-secondary-color {
+	@include theme() {
+		color: #{theme-get("secondary")};
+	}
+}
+
+.logo {
+	width: 64px;
+}
+
+.title-shape {
+	position: relative;
+	width: 50px;
+	height: 4px;
+	margin: 0 auto;
+	background-color: #ffb600;
+	margin: 15px auto 0;
+	border-radius: 5px;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		width: 4px;
+		height: 4px;
+		right: -8px;
+		background-color: #ffb600;
+		border-radius: 5px;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		width: 4px;
+		height: 4px;
+		left: -8px;
+		background-color: #ffb600;
+		border-radius: 5px;
+	}
+}
+
+.ls-1 {
+	letter-spacing: 1px;
+}
+
+.hightlight {
+	background: linear-gradient(transparent 50%, rgb(30 168 231 / 20%) 0);
+
+	// @include theme() {
+	// 	background: linear-gradient(transparent 50%, lighten($color: theme-get("primary"), $amount: 25) 0);
+	// }
+}
+
+::-moz-selection {
+	color: #fff;
+	@include theme() {
+		background-color: #{theme-get("primary")};
+	}
+}
+
+::selection {
+	color: #fff;
+	@include theme() {
+		background-color: #{theme-get("primary")};
+	}
+}
+
+.form-check-input {
+	&:checked {
+		@include theme() {
+			background-color: #{theme-get("primary")};
+			border-color: #{theme-get("primary")};
+		}
+	}
+}
+
+.text-theme {
+	@include theme() {
+		color: #{theme-get("primary")};
+	}
+}
