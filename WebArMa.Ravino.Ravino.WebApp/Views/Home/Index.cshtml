@@ -181,21 +181,35 @@
     <div class="container d-block">
         <h3 class="line d-block font-iransans-black"> نمونه کارهای من </h3>
 
-        @foreach(var item in Model)
-        <div class="portfolio-grid">
-            <div class="portfolio-item group1 col-6 col-md-3 p-1">
-                <img class="w-100" src="assets/images/portfolio/1.jpg" />
-                <div class="item-img-overlay">
-                    <small class="d-block text-muted mb-3">نمونه کار</small>
-                    <h6 class="fw-bold mb-3">قالب راوینو</h6>
-                    <a class="link link-theme" href="#">
-                        <i class="mdi mdi-link mdi-36px"></i>
-                    </a>
-                </div>
-            </div>
+        <div class="button-group filters-button-group text-center my-5" hidden>
+            <button type="button" class="btn btn-light rounded-5 mx-1" data-filter="*">همه</button>
+            <button type="button" class="btn btn-light rounded-5 mx-1" data-filter=".group1">وبسایت</button>
+            <button type="button" class="btn btn-light rounded-5 mx-1" data-filter=".group2">اپ موبایل</button>
+            <button type="button" class="btn btn-light rounded-5 mx-1" data-filter=".group3">اپلیکیشن</button>
         </div>
 
+        <div class="portfolio-grid" data-isotope='{ "itemSelector": ".portfolio-item", "layoutMode": "fitRows", "isOriginLeft": false }'>
 
+
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model)
+            {
+                i++;
+                <div class="portfolio-item group@(i) col-6 col-md-3 p-1">
+                    <img class="w-100" src="assets/images/portfolio/1.jpg" />
+                    <div class="item-img-overlay">
+                        <small class="d-block text-muted mb-3">نمونه کار</small>
+                        <h6 class="fw-bold mb-3">قالب راوینو</h6>
+                        <a class="link link-theme" href="#">
+                            <i class="mdi mdi-link mdi-36px"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
     </div>
     @if (User.IsInRole("Admin"))
     {
